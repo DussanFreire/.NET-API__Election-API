@@ -12,6 +12,7 @@ namespace ElectionAPI.Models
         public bool? PartyB { get; set; }
         public bool? PartyC { get; set; }
         public bool? IsValid { get; set; }
+        public bool? BlankVote { get; set; }
         public string Name { get; set; }
         public DateTime? DateRegistered { get; set; }
         public long TableId { get; set; }
