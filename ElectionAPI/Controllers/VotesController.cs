@@ -79,7 +79,24 @@ namespace ElectionAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
             }
         }
-        //update
         //delete
+        [HttpDelete("{voteId:int}")]
+        public ActionResult<bool> DeleteVote(long tableId, long voteId)
+        {
+            try
+            {
+                var result = _voteService.DeleteVote(tableId, voteId);
+                return Ok(result);
+            }
+            catch (NotFoundItemException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
+            }
+        }
+        //update
     }
 }

@@ -62,7 +62,7 @@ namespace ElectionAPI.Data.Repositories
         public VoteModel CreateVote(long tableId, VoteModel newVote)
         {
             newVote.TableId = tableId;
-            var nextId = _votes.OrderByDescending(p => p.Id).FirstOrDefault().Id + 1;
+            var nextId = _votes.OrderByDescending(v => v.Id).FirstOrDefault().Id + 1;
             newVote.Id = nextId;
             _votes.Add(newVote);
             return newVote;
@@ -77,7 +77,8 @@ namespace ElectionAPI.Data.Repositories
 
         public void DeleteVote(long tableId, long voteId)
         {
-            throw new NotImplementedException();
+            var voteToDelete = _votes.FirstOrDefault(v => v.TableId == tableId && v.Id == voteId);
+            _votes.Remove(voteToDelete);
         }
 
         public TableWithVotesModel GetTable(long tableId)

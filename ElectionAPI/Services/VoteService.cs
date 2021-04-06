@@ -27,7 +27,9 @@ namespace ElectionAPI.Services
 
         public bool DeleteVote(long tableId, long voteId)
         {
-            throw new NotImplementedException();
+            ValidateTableAndPlayer(tableId, voteId);
+            _electionRepository.DeleteVote(tableId, voteId);
+            return true;
         }
 
         public VoteModel GetVote(long tableId, long voteId)
@@ -60,6 +62,10 @@ namespace ElectionAPI.Services
             {
                 throw new NotFoundItemException($"The table with id: {tableId} doesn't exists.");
             }
+        }
+        private void ValidateTableAndPlayer(long tableId, long voteId)
+        {
+            var player = GetVote(tableId, voteId);
         }
     }
 }
