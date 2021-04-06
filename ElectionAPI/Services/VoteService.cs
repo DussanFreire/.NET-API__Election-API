@@ -79,6 +79,10 @@ namespace ElectionAPI.Services
                 if (votesMade == 0)
                     newVote.BlankVote = true;
             }
+            else
+            {
+                newVote.IsValid = false;
+            }
         }
     }
 }

@@ -83,6 +83,11 @@ namespace ElectionAPI.Data.Repositories
             _votes.Remove(voteToDelete);
         }
 
+        public IEnumerable<VoteModel> GetAllVotes()
+        {
+            return _votes;
+        }
+
         public TableWithVotesModel GetTable(long tableId)
         {
             var table = _tables.FirstOrDefault(t => t.Id == tableId);
