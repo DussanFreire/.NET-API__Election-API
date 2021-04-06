@@ -58,7 +58,15 @@ namespace ElectionAPI.Services
 
         public TableModel UpdateTable(long tableId, TableModel updatedTable)
         {
-            throw new NotImplementedException();
+            ValidateTable(tableId);
+            updatedTable.Id = tableId;
+            var updatedTableEntity = _electionRepository.UpdateTable(tableId, updatedTable);
+            return updatedTableEntity;
+        }
+
+        private void ValidateTable(long tableId)
+        {
+            GetTable(tableId);
         }
     }
 }

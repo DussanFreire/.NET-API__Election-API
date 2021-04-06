@@ -110,7 +110,10 @@ namespace ElectionAPI.Data.Repositories
 
         public TableModel UpdateTable(long tableId, TableModel updatedTable)
         {
-            throw new NotImplementedException();
+            var table = _tables.First(t => t.Id == tableId);
+            table.Number = updatedTable.Number ?? table.Number;
+            table.Location = updatedTable.Location ?? table.Location;
+            return table;
         }
 
         public VoteModel UpdateVote(long tableId, long voteId, VoteModel updatedVote)
