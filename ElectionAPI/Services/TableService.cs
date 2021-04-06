@@ -30,6 +30,7 @@ namespace ElectionAPI.Services
         public TableModel CreateTable(TableModel newTable)
         {
             var createdTable = _electionRepository.CreateTable(newTable);
+            newTable.IsValid = true;
             return createdTable;
         }
 

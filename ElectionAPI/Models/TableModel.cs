@@ -10,6 +10,7 @@ namespace ElectionAPI.Models
         public long Id { get; set; }
         public long? Number { get; set; }
         public string Location { get; set; }
+        public bool IsValid{ get; set; }
 
     }
 }

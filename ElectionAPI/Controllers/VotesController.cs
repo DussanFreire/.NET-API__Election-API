@@ -70,6 +70,10 @@ namespace ElectionAPI.Controllers
                 var createdVote = _voteService.CreateVote(tableId, newVote);
                 return Created($"/api/tables/{tableId}/votes/{createdVote.Id}", createdVote);
             }
+            catch (InvalidOperationItemException ex)
+            {
+                return NotFound(ex.Message);
+            }
             catch (NotFoundItemException ex)
             {
                 return NotFound(ex.Message);

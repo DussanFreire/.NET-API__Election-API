@@ -64,6 +64,10 @@ namespace ElectionAPI.Services
             {
                 throw new NotFoundItemException($"The table with id: {tableId} doesn't exists.");
             }
+            else if (table.IsValid == false)
+            {
+                throw new InvalidOperationItemException($"The table with id: {tableId} is invalid.");
+            }
         }
         private void ValidateTableAndVote(long tableId, long voteId)
         {

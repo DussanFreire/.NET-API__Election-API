@@ -17,15 +17,15 @@ namespace ElectionAPI.Data.Repositories
             {
                 Id = 1,
                 Location = "Cercado",
-                Number = 123
-
-            });
+                Number = 123,
+                IsValid = true
+            }); ;
             _tables.Add(new TableModel()
             {
                 Id = 2,
                 Location = "Quillacollo",
-                Number = 321
-
+                Number = 321,
+                IsValid = true
             });
             _votes = new List<VoteModel>();
             _votes.Add(new VoteModel()
@@ -100,6 +100,7 @@ namespace ElectionAPI.Data.Repositories
                     Id = table.Id,
                     Location = table.Location,
                     Number = table.Number,
+                    IsValid = table.IsValid,
                     Votes = votes
                 };
                 return tableWithVotes;
@@ -131,6 +132,7 @@ namespace ElectionAPI.Data.Repositories
                 return v;
             }
             ).ToList();
+            _tables.FirstOrDefault(t => t.Id == tableId).IsValid = false;
             var tableWithVotes = GetTable(tableId);
             return tableWithVotes;
         }
