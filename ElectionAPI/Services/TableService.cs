@@ -17,6 +17,10 @@ namespace ElectionAPI.Services
         {
             "id",
         };
+        private HashSet<string> _allowedActions = new HashSet<string>()
+        {
+            "invalid table",
+        };
 
 
         public TableService(IElectionRepository electionRepository)
@@ -54,6 +58,15 @@ namespace ElectionAPI.Services
                 throw new InvalidOperationItemException($"The Orderby value: {orderBy} is invalid, please use one of {String.Join(',', _allowedOrderByValues.ToArray())}");
             var modelList = _electionRepository.GetTables(orderBy.ToLower());
             return modelList;
+        }
+
+        public TableWithVotesModel UpdateInvalidTable(long tableId, ActionModel action)
+        {
+            if (!_allowedActions.Contains(action.Description.ToLower()))
+                throw new InvalidOperationItemException($"The action: {action.Description} is invalid, please use one of {String.Join(',', _allowedActions.ToArray())}");
+            ValidateTable(tableId);
+            var updatedTableEntity = _electionRepository.UpdateInvalidTable(tableId);
+            return updatedTableEntity;
         }
 
         public TableModel UpdateTable(long tableId, TableModel updatedTable)

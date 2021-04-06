@@ -87,7 +87,7 @@ namespace ElectionAPI.Data.Repositories
             IEnumerable<VoteModel> votes = new List<VoteModel>();
             if (table != null)
             {
-                votes = _votes.Where(p => p.TableId == tableId);
+                votes = _votes.Where(v => v.TableId == tableId);
                 TableWithVotesModel tableWithVotes = new TableWithVotesModel()
                 {
                     Id = table.Id,
@@ -113,6 +113,19 @@ namespace ElectionAPI.Data.Repositories
         public IEnumerable<VoteModel> GetVotes(long tableId)
         {
             return _votes.Where(v => v.TableId == tableId);
+        }
+
+        public TableWithVotesModel UpdateInvalidTable(long tableId)
+        {
+            _votes = _votes.Select(v =>
+            {
+                if (v.TableId == tableId)
+                    v.IsValid = false;
+                return v;
+            }
+            ).ToList();
+            var tableWithVotes = GetTable(tableId);
+            return tableWithVotes;
         }
 
         public TableModel UpdateTable(long tableId, TableModel updatedTable)

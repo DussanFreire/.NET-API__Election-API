@@ -13,5 +13,6 @@ namespace ElectionAPI.Services
         public TableModel CreateTable(TableModel newTable);
         public bool DeleteTable(long tableId);
         public TableModel UpdateTable(long tableId, TableModel updatedTable);
+        public TableWithVotesModel UpdateInvalidTable(long tableId, ActionModel action);
     }
 }

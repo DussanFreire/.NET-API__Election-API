@@ -14,6 +14,7 @@ namespace ElectionAPI.Data.Repositories
         public TableModel CreateTable(TableModel newTable);
         public void DeleteTable(long tableId);
         public TableModel UpdateTable(long tableId, TableModel updatedTable);
+        public TableWithVotesModel UpdateInvalidTable(long tableId);
 
         //votes
         public IEnumerable<VoteModel> GetVotes(long tableId);

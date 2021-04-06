@@ -110,6 +110,25 @@ namespace ElectionAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
             }
         }
+        //invalidate table
+        [HttpPut("{tableId:long}/InvalidTable")]
+        public ActionResult<TableModel> UpdateInvalidateTable(long tableId, [FromBody] ActionModel updatedTable)
+        {
+            try
+            {
+
+                var table = _tablesService.UpdateInvalidTable(tableId, updatedTable);
+                return Ok(table);
+            }
+            catch (NotFoundItemException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
+            }
+        }
 
     }
 }

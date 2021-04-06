@@ -21,10 +21,19 @@ namespace ElectionAPI.Services
         public VoteModel CreateVote(long tableId, VoteModel newVote)
         {
             ValidateTable(tableId);
+            if (!isAValidVote(newVote))
+                newVote.IsValid = false;
+            else
+                newVote.IsValid = true;
             var createdVote = _electionRepository.CreateVote(tableId, newVote);
             return createdVote;
         }
-
+        private bool isAValidVote(VoteModel newVote)
+        {
+            List<bool> partys = new List<bool>() { (bool)newVote.PartyA, (bool)newVote.PartyB, (bool)newVote.PartyC };
+            int votesMade = partys.Where(v => v == true).Count();
+            return votesMade == 1;
+        }
         public bool DeleteVote(long tableId, long voteId)
         {
             ValidateTableAndVote(tableId, voteId);
