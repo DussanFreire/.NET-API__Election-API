@@ -27,7 +27,7 @@ namespace ElectionAPI.Services
 
         public bool DeleteVote(long tableId, long voteId)
         {
-            ValidateTableAndPlayer(tableId, voteId);
+            ValidateTableAndVote(tableId, voteId);
             _electionRepository.DeleteVote(tableId, voteId);
             return true;
         }
@@ -35,12 +35,12 @@ namespace ElectionAPI.Services
         public VoteModel GetVote(long tableId, long voteId)
         {
             ValidateTable(tableId);
-            var voteEntity = _electionRepository.GetVote(tableId, voteId);
-            if (voteEntity == null)
+            var voteModel = _electionRepository.GetVote(tableId, voteId);
+            if (voteModel == null)
             {
                 throw new NotFoundItemException($"The vote with id: {voteId} does not exist in table with id:{tableId}.");
             }
-            return voteEntity;
+            return voteModel;
         }
 
         public IEnumerable<VoteModel> GetVotes(long tableId)
@@ -52,7 +52,8 @@ namespace ElectionAPI.Services
 
         public VoteModel UpdateVote(long tableId, long voteId, VoteModel updatedVote)
         {
-            throw new NotImplementedException();
+            var voteModel = _electionRepository.UpdateVote(tableId, voteId, updatedVote);
+            return voteModel;
         }
 
         private void ValidateTable(long tableId)
@@ -63,9 +64,9 @@ namespace ElectionAPI.Services
                 throw new NotFoundItemException($"The table with id: {tableId} doesn't exists.");
             }
         }
-        private void ValidateTableAndPlayer(long tableId, long voteId)
+        private void ValidateTableAndVote(long tableId, long voteId)
         {
-            var player = GetVote(tableId, voteId);
+            var vote = GetVote(tableId, voteId);
         }
     }
 }

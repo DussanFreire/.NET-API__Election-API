@@ -125,7 +125,14 @@ namespace ElectionAPI.Data.Repositories
 
         public VoteModel UpdateVote(long tableId, long voteId, VoteModel updatedVote)
         {
-            throw new NotImplementedException();
+            var voteToUpdate = _votes.FirstOrDefault(v => v.TableId == tableId && v.Id == voteId);
+            voteToUpdate.Name = updatedVote.Name ?? voteToUpdate.Name;
+            voteToUpdate.PartyA = updatedVote.PartyA ?? voteToUpdate.PartyA;
+            voteToUpdate.PartyB = updatedVote.PartyB ?? voteToUpdate.PartyB;
+            voteToUpdate.PartyC = updatedVote.PartyC ?? voteToUpdate.PartyC;
+            voteToUpdate.DateRegistered = updatedVote.DateRegistered ?? voteToUpdate.DateRegistered;
+
+            return updatedVote;
         }
     }
 }

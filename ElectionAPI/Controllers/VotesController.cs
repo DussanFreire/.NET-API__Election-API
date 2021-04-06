@@ -98,5 +98,22 @@ namespace ElectionAPI.Controllers
             }
         }
         //update
+        [HttpPut("{voteId:long}")]
+        public ActionResult<VoteModel> UpdateVote(long tableId, long voteId, [FromBody] VoteModel voteToUpdate)
+        {
+            try
+            {
+                var updatedPayer = _voteService.UpdateVote(tableId, voteId, voteToUpdate);
+                return Ok(updatedPayer);
+            }
+            catch (NotFoundItemException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Something unexpected happened.");
+            }
+        }
     }
 }
