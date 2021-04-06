@@ -13,6 +13,7 @@ namespace ElectionAPI.Models
         public bool PartyC { get; set; }
         public bool IsValid { get; set; }
         public string Name { get; set; }
+        public DateTime DateRegistered { get; set; }
         public long TableId { get; set; }
     }
 }

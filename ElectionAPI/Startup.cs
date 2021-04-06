@@ -28,7 +28,7 @@ namespace ElectionAPI
         {
             services.AddControllers();
             services.AddTransient<ITablesService, TableService>();
-
+            services.AddTransient<IVotesService, VoteService>();
             services.AddSingleton<IElectionRepository, ElectionRepository>();
         }
 

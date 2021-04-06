@@ -36,6 +36,7 @@ namespace ElectionAPI.Data.Repositories
                 PartyA = true,
                 PartyB = false,
                 PartyC = false,
+                DateRegistered = new DateTime(2021, 1, 17, 17, 40, 0),
                 TableId = 1
             });
             _votes.Add(new VoteModel()
@@ -46,6 +47,7 @@ namespace ElectionAPI.Data.Repositories
                 PartyA = false,
                 PartyB = true,
                 PartyC = false,
+                DateRegistered = new DateTime(2021, 1, 17, 11, 14, 0),
                 TableId = 2
             });
         }
@@ -59,7 +61,11 @@ namespace ElectionAPI.Data.Repositories
 
         public VoteModel CreateVote(long tableId, VoteModel newVote)
         {
-            throw new NotImplementedException();
+            newVote.TableId = tableId;
+            var nextId = _votes.OrderByDescending(p => p.Id).FirstOrDefault().Id + 1;
+            newVote.Id = nextId;
+            _votes.Add(newVote);
+            return newVote;
         }
 
         public void DeleteTable(long tableId)
@@ -100,12 +106,12 @@ namespace ElectionAPI.Data.Repositories
 
         public VoteModel GetVote(long tableId, long voteId)
         {
-            throw new NotImplementedException();
+            return _votes.FirstOrDefault(v => v.TableId == tableId && v.Id == voteId);
         }
 
         public IEnumerable<VoteModel> GetVotes(long tableId)
         {
-            throw new NotImplementedException();
+            return _votes.Where(v => v.TableId == tableId);
         }
 
         public TableModel UpdateTable(long tableId, TableModel updatedTable)
