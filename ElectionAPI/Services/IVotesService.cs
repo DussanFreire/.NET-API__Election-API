@@ -8,7 +8,7 @@ namespace ElectionAPI.Services
 {
     public interface IVotesService
     {
-        public IEnumerable<VoteModel> GetVotes(long tableId);
+        public IEnumerable<VoteModel> GetVotes(long tableId, string filter = "All");
         public VoteModel GetVote(long tableId, long voteId);
         public VoteModel CreateVote(long tableId, VoteModel newVote);
         public bool DeleteVote(long tableId, long voteId);

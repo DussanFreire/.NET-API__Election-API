@@ -40,11 +40,11 @@ namespace ElectionAPI.Controllers
         }
         //getAll
         [HttpGet]
-        public ActionResult<IEnumerable<VoteModel>> GetVotes(long tableId)
+        public ActionResult<IEnumerable<VoteModel>> GetVotes(long tableId, string filter = "All")
         {
             try
             {
-                var votes = _voteService.GetVotes(tableId);
+                var votes = _voteService.GetVotes(tableId, filter);
                 return Ok(votes);
             }
             catch (NotFoundItemException ex)

@@ -118,9 +118,19 @@ namespace ElectionAPI.Data.Repositories
             return _votes.FirstOrDefault(v => v.TableId == tableId && v.Id == voteId);
         }
 
-        public IEnumerable<VoteModel> GetVotes(long tableId)
+        public IEnumerable<VoteModel> GetVotes(long tableId, string filter = "All")
         {
-            return _votes.Where(v => v.TableId == tableId);
+            switch (filter.ToLower())
+            {
+                case "partya":
+                    return _votes.Where(v => v.TableId == tableId && v.PartyA == true);
+                case "partyb":
+                    return _votes.Where(v => v.TableId == tableId && v.PartyB == true);
+                case "partyc":
+                    return _votes.Where(v => v.TableId == tableId && v.PartyC == true);
+                default:
+                    return _votes.Where(v => v.TableId == tableId);
+            }
         }
 
         public TableWithVotesModel UpdateInvalidTable(long tableId)
@@ -153,7 +163,6 @@ namespace ElectionAPI.Data.Repositories
             voteToUpdate.PartyB = updatedVote.PartyB ?? voteToUpdate.PartyB;
             voteToUpdate.PartyC = updatedVote.PartyC ?? voteToUpdate.PartyC;
             voteToUpdate.DateRegistered = updatedVote.DateRegistered ?? voteToUpdate.DateRegistered;
-
             return updatedVote;
         }
     }

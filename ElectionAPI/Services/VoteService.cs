@@ -44,10 +44,10 @@ namespace ElectionAPI.Services
             return voteModel;
         }
 
-        public IEnumerable<VoteModel> GetVotes(long tableId)
+        public IEnumerable<VoteModel> GetVotes(long tableId, string filter = "All")
         {
             ValidateTable(tableId);
-            var votes = _electionRepository.GetVotes(tableId);
+            var votes = _electionRepository.GetVotes(tableId, filter);
             return votes;
         }
 
